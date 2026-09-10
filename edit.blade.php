@@ -3,13 +3,15 @@
     <x-slot name="header">
 
         <div>
+
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Tambah Publikasi
+                Edit Publikasi
             </h2>
 
             <p class="text-sm text-gray-500 mt-1">
                 Dosen: {{ $dosen->nama_dosen }}
             </p>
+
         </div>
 
     </x-slot>
@@ -45,10 +47,12 @@
 
                 <form
                     method="POST"
-                    action="{{ route('dosen.publikasi.store') }}"
+                    action="{{ route('dosen.publikasi.update', $publikasi->id) }}"
                 >
 
                     @csrf
+
+                    @method('PUT')
 
 
                     {{-- Judul --}}
@@ -65,7 +69,7 @@
                             type="text"
                             id="judul"
                             name="judul"
-                            value="{{ old('judul') }}"
+                            value="{{ old('judul', $publikasi->judul) }}"
                             required
                             placeholder="Masukkan judul publikasi"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -96,35 +100,35 @@
 
                             <option
                                 value="Jurnal"
-                                {{ old('jenis') == 'Jurnal' ? 'selected' : '' }}
+                                {{ old('jenis', $publikasi->jenis) == 'Jurnal' ? 'selected' : '' }}
                             >
                                 Jurnal
                             </option>
 
                             <option
                                 value="Prosiding"
-                                {{ old('jenis') == 'Prosiding' ? 'selected' : '' }}
+                                {{ old('jenis', $publikasi->jenis) == 'Prosiding' ? 'selected' : '' }}
                             >
                                 Prosiding
                             </option>
 
                             <option
                                 value="Buku"
-                                {{ old('jenis') == 'Buku' ? 'selected' : '' }}
+                                {{ old('jenis', $publikasi->jenis) == 'Buku' ? 'selected' : '' }}
                             >
                                 Buku
                             </option>
 
                             <option
                                 value="Book Chapter"
-                                {{ old('jenis') == 'Book Chapter' ? 'selected' : '' }}
+                                {{ old('jenis', $publikasi->jenis) == 'Book Chapter' ? 'selected' : '' }}
                             >
                                 Book Chapter
                             </option>
 
                             <option
                                 value="Lainnya"
-                                {{ old('jenis') == 'Lainnya' ? 'selected' : '' }}
+                                {{ old('jenis', $publikasi->jenis) == 'Lainnya' ? 'selected' : '' }}
                             >
                                 Lainnya
                             </option>
@@ -148,7 +152,7 @@
                             type="number"
                             id="tahun"
                             name="tahun"
-                            value="{{ old('tahun') }}"
+                            value="{{ old('tahun', $publikasi->tahun) }}"
                             min="1900"
                             max="2100"
                             placeholder="Contoh: 2026"
@@ -172,7 +176,7 @@
                             type="text"
                             id="jurnal"
                             name="jurnal"
-                            value="{{ old('jurnal') }}"
+                            value="{{ old('jurnal', $publikasi->jurnal) }}"
                             placeholder="Masukkan nama jurnal atau penerbit"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -194,14 +198,10 @@
                             type="url"
                             id="url"
                             name="url"
-                            value="{{ old('url') }}"
+                            value="{{ old('url', $publikasi->url) }}"
                             placeholder="https://contoh.com/publikasi"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-
-                        <p class="text-xs text-gray-500 mt-1">
-                            Isi jika publikasi memiliki link online.
-                        </p>
 
                     </div>
 
@@ -220,7 +220,7 @@
                             type="text"
                             id="doi"
                             name="doi"
-                            value="{{ old('doi') }}"
+                            value="{{ old('doi', $publikasi->doi) }}"
                             placeholder="Contoh: 10.1234/xxxxx"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -243,7 +243,7 @@
                             type="submit"
                             style="background-color:#2563eb;color:white;padding:10px 20px;border-radius:8px;border:none;font-weight:bold;cursor:pointer;"
                         >
-                            Simpan Publikasi
+                            Update Publikasi
                         </button>
 
                     </div>
